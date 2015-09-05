@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>追剧指南</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <div class="user">
+                <a href="#" class="user-img"></a>
+                <div class="user-info">
+                    <p class="cf"><a href="#" class="user-name">wanlu wang</a></p>
+                    <p class="user-intro">程序媛</p>
+                </div>
+            </div>
+            <a href="#" class="header-add">添加 +</a>
+        </div>
+        <div class="main">
+            <div class="time">
+                <a href="#" class="time-prev"></a>
+                <div class="time-list">
+                    <div class="time-list-inner">
+                        <a href="#" class="time-list-item" data-index="0" data-type="Mon">周一</a>
+                        <a href="#" class="time-list-item" data-index="1" data-type="Tus">周二</a>
+                        <a href="#" class="time-list-item" data-index="2" data-type="Wed">周三</a>
+                        <a href="#" class="time-list-item" data-index="3" data-type="Thu">周四</a>
+                        <a href="#" class="time-list-item" data-index="4" data-type="Fri">周五</a>
+                        <a href="#" class="time-list-item" data-index="5" data-type="Sat">周六</a>
+                        <a href="#" class="time-list-item" data-index="6" data-type="Sun">周日</a>
+                    </div>
+                </div>
+                <a href="#" class="time-next"></a>
+            </div>
+            <div class="content">
+                <ul class="content-list">
+                </ul>
+            </div>
+        </div>
+        <div class="footer">
+            <ul class="footer-list">
+                <li class="footer-list-item"><a href="#" class="footer-list-item-link currentFooterItem" data-type="all">所有</a></li>
+                <li class="footer-list-item"><a href="#" class="footer-list-item-link" data-type="EA">英美</a></li>
+                <li class="footer-list-item"><a href="#" class="footer-list-item-link" data-type="JK">日韩</a></li>
+                <li class="footer-list-item"><a href="#" class="footer-list-item-link" data-type="variety">综艺</a></li>
+                <li class="footer-list-item"><a href="#" class="footer-list-item-link" data-type="cartoon">动漫</a></li>
+            </ul>
+        </div>
+        <div class="mask"></div>
+        <div class="dialog">
+            <div class="dialog-hd">
+                添加新内容
+            </div>
+            <div class="dialog-bd">
+                <div class="dialog-bd-tag">
+                    <label for="dialog-savePath">分类:</label>
+                    <select id="dialog-savePath" class="dialog-bd-tag-item">
+                        <option data-type="EA">英美</option>
+                        <option data-type="JK">日韩</option>
+                        <option data-type="variety">综艺</option>
+                        <option data-type="cartoon">动漫</option>
+                    </select>
+                </div>
+                <div class="dialog-bd-date">
+                    <label for="dialog-date">日期:</label>
+                    <select id="dialog-date" class="dialog-bd-date-item">
+                        <option data-type="Mon">周一</option>
+                        <option data-type="Tus">周二</option>
+                        <option data-type="Wed">周三</option>
+                        <option data-type="Thu">周四</option>
+                        <option data-type="Fri">周五</option>
+                        <option data-type="Sat">周六</option>
+                        <option data-type="Sun">周日</option>
+                    </select>
+                </div>
+                <div class="dialog-bd-title">
+                    <label for="dialog-title">题目:</label>
+                    <input type="text" id="dialog-title">
+                </div>
+                <a href="#" class="dialog-bd-submit">确定</a>
+            </div>
+            <div class="dialog-ft">
+                <a href="#" class="dialog-ft-link">x</a>
+            </div>
+        </div>
+    </div>
+    <div class="subwrapper"></div>
+    <script type="text/template" id="tpl-content">
+        <%for (var i = 0; i < data.length; i++) {%>
+            <li class="content-list-item content-list-item-<%=data[i].tag%> content-list-item-<%=data[i].date%>">
+                <div class="content-list-item-inner">
+                    <div class="content-list-item-main" data-id="<%=data[i].id%>">
+                        <p class="content-list-item-title"><%=data[i].title%></p>
+                        <p class="content-list-item-info"><%=data[i].summary%></p>
+                        <p class="content-list-item-tag">
+                            <%if(data[i].tag==='EA') {%>
+                                英美
+                            <%} else if (data[i].tag==='JK') {%>
+                                日韩
+                            <%} else if (data[i].tag==='variety') {%>
+                                综艺
+                            <%} else {%>
+                                动漫
+                            <%}%>
+                        </p>
+                    </div>
+                    <a href="#" class="content-list-item-delete">删除</a>
+                </div>
+            </li>
+        <%}%>
+    </script>
+    <script type="text/template" id="tpl-subwrapper">
+        <div class="subwrapper-hd">
+            <a href="#" class="subwrapper-hd-link"></a><%=data.title%>
+        </div>
+        <div class="subwrapper-bd">
+            <p>内容简介：</p>
+            <p class="subwrapper-bd-content"><%=data.summary%></p>
+        </div>
+    </script>
+    <script src="js/jquery.js"></script>
+    <script src="js/require.js"></script>
+    <script>
+        require.config({
+            // urlArgs: "bust=" +  (new Date()).getTime(),
+            baseUrl: './js'
+        });
+    </script>
+    <script>
+        require(['index'], function (index) {
+            index.init();
+        });
+    </script>
+</body>
+</html>
